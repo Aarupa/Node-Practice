@@ -1,0 +1,59 @@
+import express, { response } from 'express';
+
+const app = express();
+
+const users=[
+    {id:1, name: 'Aarti', age: 21, city: 'pune'},
+    {id:2, name: 'kirti', age: 18, city: 'pune'},
+    {id:3, name: 'pooja', age: 24, city: 'SambhajiNagar'},
+    {id:4, name: 'mayuri', age:21, city: 'vaijapur'},
+    {id:5, name: 'nikita', age:20, city: 'MP'}
+];
+
+// app.get('/users',(req,res)=>{
+//     res.json(users)
+// })
+
+app.get('/users/:id',(req,res)=>{
+    const id = req.params.id
+    const user = users.filter(user=> user.id == id)
+    if (!user) {
+        return res.status(404).json({ error: 'User not found' });
+    }
+     res.json(user)
+})
+
+app.get('/users', (req, res) => {
+    const limit = req.query.limit;
+
+    if (limit !== undefined && parseInt(limit) > 0) {
+        return res.json(users.slice(0, parseInt(limit)));
+    }
+
+    res.json(users);
+});
+
+
+app.get('/users',(req,res) => {
+    const sort = req.query.sort;
+    let sortUsers = [...users];
+
+    if(sort === 'asc'){
+        sortUsers.sort((a,b)=> a.name.localeCompare(b.name));
+    }
+    else if(sort === 'desc'){
+        sortUsers.sort((a,b) => b.name.localeCompare(a.name));
+    }
+
+    res.json(sortUsers);
+
+})
+
+
+
+
+
+
+app.listen(3000,function(){
+    console.log("server is running");
+})

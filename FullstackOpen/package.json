@@ -1,0 +1,16 @@
+{
+  "name": "fullstackopen",
+  "version": "1.0.0",
+  "description": "practice express",
+  "main": "main.js",
+  "type": "module",
+  "scripts": {
+    "dev":"node --watch --env-file=.env main",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Aarti laane",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}

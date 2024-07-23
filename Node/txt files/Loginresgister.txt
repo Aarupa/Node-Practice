@@ -1,0 +1,85 @@
+import express from 'express';
+const app = express();
+const PORT = process.env.PORT
+app.use(express.json());
+
+
+const users = [
+    {
+        id:1,
+        username:"Aarti",
+        email:"aarti@gmail.com"
+    },
+    {
+        id:2,
+        username:"kirti",
+        email:"kirti@gmail.com"
+    }
+
+]
+
+
+app.get('/users',(req,res)=>{
+    res.json(users);
+})
+
+app.post('/users/register',(req,res)=>{
+    const user=req.body;
+    console.log(req.body);
+
+    //if user id and username is not present
+    if(!user.id || !user.username){
+        return res.status(400).json({message:"invalide user"});
+    }
+
+    //if user already in database
+    const presentUser = users.find(u => u.id === user.id);
+    if (presentUser) {
+        return res.status(400).json({ message: "User already exists" });
+    }
+
+    users.push(user);
+    res.json({message:"registraction successfully"});
+})
+
+
+app.post('/users/login',(req,res)=>{
+    console.log(req.body);
+    const id = Number(req.body.id);
+    const username = req.body.username;
+    const userindex = users.findIndex(user=>user.id == id);
+    if (!id || !username) {
+        return res.status(400).json({ message: "Invalid user data" });
+    }
+    else if(users[userindex].username === username){
+        return res.status(200).json({ message: "Login successfull" });
+    }
+    res.status(404).json({message:"Login Failed!"});
+
+
+})
+
+app.post('/users/update',(req,res)=>{
+    console.log(req.body);
+    const id = Number(req.body.id);
+    const username = req.body.username;
+    const userindex = users.findIndex(user=>user.id == id);
+
+    if (!id || !username ) {
+        return res.status(400).json({ message: "Invalid user data" });
+    }
+
+    if(userindex === -1 ){
+       return res.status(400).json({message:"user not found"});
+    }
+
+    users[userindex].username = username;
+
+    res.json(users);
+
+})
+
+app.listen(PORT,()=>{
+    console.log(`server is running on port ${PORT}`);
+})
+
