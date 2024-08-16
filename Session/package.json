@@ -1,0 +1,17 @@
+{
+  "name": "session",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch main",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Aarti",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "express": "^4.19.2",
+    "express-session": "^1.18.0"
+  }
+}

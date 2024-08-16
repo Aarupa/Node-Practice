@@ -1,0 +1,17 @@
+{
+  "name": "jwtwithoutmongo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev":"node --watch --env-file=.env index",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "aarti Lahane",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2"
+  }
+}

@@ -12,11 +12,11 @@ let cart = [
   }
 
   const getCart = (req,res,next)=>{
-    const errors = validationResult(req);
+  //   const errors = validationResult(req);
 
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-  }
+  //   if (!errors.isEmpty()) {
+  //     return res.status(400).json({ errors: errors.array() });
+  // }
 
     const id = req.params.id;
     const carts = cart.find(cart=> cart.id == id)
@@ -26,56 +26,60 @@ let cart = [
         error.status = 404;
         return next(error);
     }
-     res.json(carts)
-}
-
-const updateCart = (req, res, next) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+     res.json(carts);
   }
 
+  const updateCart =(req,res,next)=>{
+    // const errors = validationResult(req);
+    // if (!errors.isEmpty()) {
+    //   return res.status(400).json({ errors: errors.array() });
+    // }
     const id = Number(req.body.id);
     const quantity = req.body.quantity;
     const price = req.body.price;
-  
-    const cartIndex = cart.findIndex(item => item.id === id);
-  
-    if (cartIndex === -1) {
-        // return res.status(404).json({ message: 'Item not found' });
-        const error = new Error(`Item not Found`);
-        error.status = 404;
-        return next(error);
+    const cartIndex = cart.findIndex(item =>item.id===id);
+    if(cartIndex === -1){
+      const error = new Error(`item with ${id} not found`);
+      error.status=404;
+      return next(error);
     }
-  
-    if (quantity !== undefined) {
-        cart[cartIndex].quantity = quantity;
+    if(quantity !==undefined){
+      cart[cartIndex].quantity=quantity;
     }
-    if (price !== undefined) {
-      cart[cartIndex].price = price;
-  }
-  
+    if(price !== undefined){
+      cart[cartIndex].price=price; 
+    }
     res.json(cart[cartIndex]);
-  }
-
+}
   const creatCart = (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
-    }
+    // const errors = validationResult(req);
+    // if (!errors.isEmpty()) {
+    //     return res.status(400).json({ errors: errors.array() });
+    // }
     const newItem = req.body;
     cart.push(newItem);
     res.status(201).json(newItem);
   }
 
+  // const creatCart =(req,res)=>{
+  //   const newItem = req.body;
+  //   cart.push(newItem);
+  //   res.json.status(201).json(newItem);
+  // }
+
   const deleteCart = (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
-    }
+    // const errors = validationResult(req);
+    // if (!errors.isEmpty()) {
+    //     return res.status(400).json({ errors: errors.array() });
+    // }
     const id = Number(req.params.id);
     cart = cart.filter(item => item.id != id);
     res.json({message:"Item deleted successfully"});
   }
 
+  // const deleteCart = (req,res)=>{
+  //   const id = Number(req.body.id);
+  //   cart = cart.find(item=> item.id !== id)
+  //   res.json({message:"deleted "});
+  // }
   export {getAllCart,getCart,updateCart,deleteCart,creatCart};

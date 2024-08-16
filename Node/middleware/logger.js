@@ -1,5 +1,5 @@
 const logging =(req,res,next)=>{
-    console.log(`${req.method} ${req.url}`);
+    console.log(`${req.method} ${req.hostname} ${req.url}`);
     next();
 }
 

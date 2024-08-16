@@ -5,15 +5,21 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "node --watch --env-file=.env main",
+    "dev": "node --watch --env-file=.env app",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "aarti",
   "license": "MIT",
   "dependencies": {
     "axios": "^1.7.2",
+    "bcrpyt": "^2.0.0",
+    "bcrypt": "^5.1.1",
+    "connect-mongo": "^5.1.0",
+    "cookie-parser": "^1.4.6",
     "express": "^4.19.2",
-    "express-validator": "^7.1.0"
+    "express-session": "^1.18.0",
+    "express-validator": "^7.1.0",
+    "mongoose": "^8.5.2"
   },
   "devDependencies": {
     "tailwindcss": "^3.4.4"

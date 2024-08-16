@@ -1,4 +1,4 @@
-import {validationResult} from 'express-validator'
+// import {validationResult} from 'express-validator'
 const users=[
     {id:1, name: 'Aarti', age: 21, city: 'pune'},
     {id:2, name: 'kirti', age: 18, city: 'pune'},
@@ -13,23 +13,23 @@ const getUsers= (req,res,next)=>{
     if (!user) {
         // return res.status(404).json({ error: 'User not found' });
         const error = new Error(`user with ${id} not found`);
-         error.status = 404
+         error.status = 404;
         return next(error);
     }
      res.send(user)
 }
 
 const getUserSort = (req, res) => {
-   const  error = validationResult(req)
+//    const  error = validationResult(req)
 
-    const {limit, sort} = req.query;
+    const {limit, sort,key="id"} = req.query;
     let sortUsers = [...users];
 
     if(sort === 'asc'){
-        sortUsers.sort((a,b)=> a.name.localeCompare(b.name));
+        sortUsers.sort((a,b)=> (a[key]>b[key]?1:-1));
     }
     else if(sort === 'desc'){
-        sortUsers.sort((a,b) => b.name.localeCompare(a.name));
+        sortUsers.sort((a,b) => (b[key]>a[key]?1:-1));
     }
 
     if (limit !== undefined && parseInt(limit) > 0) {
